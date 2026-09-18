@@ -66,6 +66,15 @@ Connect your local **Zotero** library to **Claude Desktop** so Claude can search
 - **태그·가져오기 도구가 안 보임** → 플러그인에서 Enable Write Operations 켜고 Zotero 재시작.
 - **설정을 바꿔도 반영 안 됨** → Claude Desktop을 완전 종료 후 재실행.
 
+### 🆚 다른 셋업과의 차이 · 해결 원리
+> 완전히 새로운 MCP가 아니라, 표준 구성(플러그인 + mcp-remote)을 **이 환경(Windows + Claude Desktop)에 맞게 문제를 풀어 재현 가능하게 정리**한 것입니다.
+
+| 무엇을 바꿠나 | 원리 | 결과 |
+|---|---|---|
+| `npx` → **node 직접 실행** | npx의 레지스트리 조회·임시 실행 단계를 없애고, 이미 설치된 실행 파일을 node가 바로 구동 | 서버 즉시 기동, "Connection closed" 해소 |
+| 구형 npm 브릿지 → **플러그인 `/mcp` 직결**(mcp-remote) | 경로가 안 맞는 중간 REST 브릿지를 거치지 않고 플러그인 네이티브 MCP에 직접 연결 | 검색·읽기·쓰기 도구 정상 노출, 실제 라이브러리 검색 성공 |
+| **쓰기모드 ON** | 플러그인이 쓰기 도구를 노출하도록 허용(기본 꺼짐) | `write_tag`·`write_item` 등 태그·가져오기 가능 |
+
 ---
 
 ## 🇬🇧 English
@@ -126,6 +135,15 @@ Connect your local **Zotero** library to **Claude Desktop** so Claude can search
 - **ping works but search returns 404** → stale npm `zotero-mcp` bridge. Install the plugin (.xpi) and connect via `mcp-remote`.
 - **Write tools not visible** → enable "Enable Write Operations" and restart Zotero.
 - **Config changes don't take effect** → fully quit and relaunch Claude Desktop.
+
+### 🆚 What's different · Why it works
+> This is **not a brand-new MCP** — it's the standard stack (plugin + mcp-remote), but **hardened and documented for this environment (Windows + Claude Desktop)** so the fixes are reproducible.
+
+| What we changed | Why it works | Result |
+|---|---|---|
+| `npx` → **run node directly** | Skips npx's registry lookup / temp-exec step and runs the already-installed file directly | Server starts immediately, "Connection closed" resolved |
+| stale npm bridge → **connect to the plugin's `/mcp`** (mcp-remote) | Bypasses the mismatched intermediate REST bridge and talks to the plugin's native MCP directly | Search/read/write tools exposed correctly; real library search works |
+| **Write mode ON** | Lets the plugin expose write tools (off by default) | `write_tag` / `write_item` etc. become available |
 
 ---
 
