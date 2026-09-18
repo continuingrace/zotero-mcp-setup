@@ -8,6 +8,12 @@ Connect your local **Zotero** library to **Claude Desktop** so Claude can search
 
 ## 🇰🇷 한국어
 
+### ⚡ 빠른 설치 (스크립트)
+이 저장소 파일로 설정을 간소화할 수 있습니다.
+- `setup-zotero-mcp.ps1` — mcp-remote 전역 설치 + 붙여넣을 config 블록 출력. 실행: `powershell -ExecutionPolicy Bypass -File .\setup-zotero-mcp.ps1`
+- `claude_desktop_config.example.json` — `zotero` 항목 예시 (사용자명만 바꿔 복사)
+- ⚠️ Zotero 플러그인(.xpi) 설치와 서버 켜기는 스크립트로 못 하니 아래 "설치 방법"을 따라주세요.
+
 ### 구성 개요
 - **Zotero MCP Plugin (.xpi)** — Zotero 안에서 MCP 서버(포트 `23120`)를 띄웁니다. (cookjohn/zotero-mcp)
 - **mcp-remote** — Claude Desktop(stdio)과 플러그인(HTTP `/mcp`)을 잇는 브릿지.
@@ -63,6 +69,11 @@ Connect your local **Zotero** library to **Claude Desktop** so Claude can search
 ---
 
 ## 🇬🇧 English
+
+### ⚡ Quick setup (scripts)
+- `setup-zotero-mcp.ps1` — installs mcp-remote globally and prints the config block to paste. Run: `powershell -ExecutionPolicy Bypass -File .\setup-zotero-mcp.ps1`
+- `claude_desktop_config.example.json` — example `zotero` entry (replace the username and copy)
+- ⚠️ Installing the Zotero plugin (.xpi) and enabling its server can't be scripted — follow "Installation" below.
 
 ### Overview
 - **Zotero MCP Plugin (.xpi)** runs an MCP server inside Zotero on port `23120` (cookjohn/zotero-mcp).
